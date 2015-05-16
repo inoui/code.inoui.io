@@ -1,0 +1,22 @@
+{
+  "name": "code.inoui.io",
+  "version": "0.0.0",
+  "authors": [
+    "Tom <tom@inoui.io>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "handlebars": "~3.0.0",
+    "jquery-sortable": "~0.9.12",
+    "medium-editor-insert-plugin": "~1.5.0",
+    "dropzone": "~4.0.1",
+    "html.sortable": "~0.1.9"
+  }
+}

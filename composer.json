@@ -1,0 +1,12 @@
+{
+    "name": "code.inoui.io",
+    "type": "lithium-library",
+    "require": {
+        "composer/installers": "dev-master",
+        "unionofrad/lithium": "1.0-beta",
+        "jails/li3_behaviors": "@dev",
+        "michaelhue/li3_flash_message": "@dev",
+        "swiftmailer/swiftmailer": "@dev",
+        "atelierdisko/li3_mailer": "@dev"
+    }
+}

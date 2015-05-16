@@ -1,0 +1,1 @@
+<?= $this->payment->createForm($order); ?>
