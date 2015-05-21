@@ -113,11 +113,16 @@ class Date extends \DateTime {
 		if (is_a($options['timezone'], '\DateTimeZone')) {
 			$options['timezone'] = $options['timezone']->getName();
 		}
-		return new IntlDateFormatter(
+		$int = new IntlDateFormatter(
 			$options['locale'] . '@calendar=' . $options['calendar'],
-			IntlDateFormatter::FULL, IntlDateFormatter::SHORT, $options['timezone'],
-			IntlDateFormatter::GREGORIAN, $options['pattern']
+			IntlDateFormatter::FULL, 
+			IntlDateFormatter::SHORT
+			// $options['timezone']
+			// IntlDateFormatter::GREGORIAN
+			// $options['pattern']
 		);
+		return $int;
+
 	}
 
 	/**

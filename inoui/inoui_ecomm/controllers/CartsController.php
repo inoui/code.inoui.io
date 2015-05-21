@@ -22,9 +22,11 @@ class CartsController extends \inoui\extensions\action\InouiController {
 			$cart = Carts::getCart(true);
 			
 			if (!empty($this->request->data['discount'])) {				
-				$discount = Discounts::find('valid', array('code'=>$this->request->data['discount']));
+				$discount = Discounts::valid($this->request->data['discount']);
 				if (count($discount)) {
-					$cart->setDiscount($discount);
+					$cart->discount = $discount;
+					$cart->save();
+					// $discount->setDiscount($cart);
 				} else {
 					$cart->errors('discount', 'This code is not valid');
 				}

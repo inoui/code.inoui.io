@@ -64,17 +64,9 @@
 					<?=$this->form->field('category_id', array(
 						'label' => $t('Primary category'),
 						'class' => 'change form-control',
-						'data-action' => 'Admin.addCategory',
 						'type' => 'nestedSelect',
 						'list' => $categories,
 						'empty' => $t('Select a category')
-					)); ?>
-
-					<?=$this->form->field('new_category', array(
-	            		'template' => '{:input}{:error}',
-						'placeholder' => $t('Provide a category name'),
-						'class' => 'form-control hide',
-						'disabled' => true
 					)); ?>
 
 
