@@ -1,12 +1,17 @@
 {
-    "name": "code.inoui.io",
-    "type": "lithium-library",
+    "name": "inoui/code.inoui.io",
+    "type": "project",
+    "description": "Main website for Forget Me not.",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
-        "composer/installers": "dev-master",
-        "unionofrad/lithium": "1.0-beta",
+        "unionofrad/lithium": "dev-dev as 1.0.0-dev",
         "jails/li3_behaviors": "@dev",
         "michaelhue/li3_flash_message": "@dev",
         "swiftmailer/swiftmailer": "@dev",
         "atelierdisko/li3_mailer": "@dev"
+    },
+    "config": {
+        "vendor-dir": "./libraries"
     }
 }
