@@ -1,7 +1,7 @@
 {
     "name": "inoui/code.inoui.io",
     "type": "project",
-    "description": "Main website for Forget Me not.",
+    "description": "Main website from inoui.",
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {

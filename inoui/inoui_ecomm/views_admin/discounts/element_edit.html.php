@@ -79,8 +79,9 @@
 					<?=$this->form->field('type', array(
 						'label' => $t('Discount type'),
 						'class' => 'form-control ',
-						'type' => 'text',
-						'help' => array('title'=>'%')
+						'type' => 'select',
+						'list' => ['%' => 'Minus percentage', 'amount' => 'Minus amount', 'shipping' => 'Free shipping' ],
+						'help' => array('title'=>'minus percentage, minus fixed amount or free shipping ')
 					)); ?>
 
 					

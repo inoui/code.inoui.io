@@ -13,10 +13,12 @@ class AdminController extends \lithium\action\Controller{
 		$path = Libraries::get('inoui_admin', 'path'); 
 		$this->_render['paths'] = array(
 	        'layout' => array(
-				"{$path}/views/layouts/{:layout}.{:type}.php"
+				"{$path}/views/layouts/{:layout}.{:type}.php",
+				"{$path}/views/layouts/{:layout}.html.php"
 			),
 	        'template' => array(
 				'{:library}/views_admin/{:controller}/{:template}.{:type}.php',
+				'{:library}/views_admin/{:controller}/{:template}.html.php',
 			),
 	        'element'  => array(
 	            '{:library}/views_admin/{:controller}/element_{:template}.{:type}.php',

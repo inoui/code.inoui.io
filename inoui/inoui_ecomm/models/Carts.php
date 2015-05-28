@@ -4,14 +4,16 @@ namespace inoui_ecomm\models;
 
 use inoui_ecomm\extensions\g11n\Currency;
 use inoui_ecomm\models\Products;
+use inoui_ecomm\models\Discounts;
 use inoui\models\Preferences;
+
 use \lithium\g11n\Message;
 use \lithium\core\Environment;
 use \lithium\storage\Session;
 use lithium\action\Request;
 use \lithium\util\Set;
-
 use li3_behaviors\data\model\Behaviors;
+
 class Carts extends \inoui\extensions\models\Inoui {
     use Behaviors;
 
@@ -82,11 +84,10 @@ class Carts extends \inoui\extensions\models\Inoui {
 			}
 		}
 
-		// if (isset($entity->discount)) {
-		// 	if ($entity->discount->type == '%') {
-		// 		$total -= $total*$entity->discount->value/100;
-		// 	}			
-		// }
+		if (isset($entity->discount)) {
+			$total = Discounts::setDiscount($entity->discount, $total);
+		}
+
         return $format?Currency::format($total):$total;
 	}
 	
@@ -190,6 +191,7 @@ class Carts extends \inoui\extensions\models\Inoui {
 	
 	public function setDiscount($entity, $discount = '') { 
 		$entity->discount = $discount;
+
 		$entity->save();
 	}
 	
