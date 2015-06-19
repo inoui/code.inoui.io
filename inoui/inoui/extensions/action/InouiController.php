@@ -19,6 +19,9 @@ class InouiController extends \lithium\action\Controller{
         $this->_bind('jsInit', $jsInit);
 
         $cl = str_replace('/', ' ',$this->request->url);
+        if ($cl == ' ') {
+            $cl = 'home';
+        }
         $this->_bind('pageClass', $cl);
 
 
