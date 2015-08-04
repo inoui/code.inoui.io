@@ -19,11 +19,31 @@ class Pages extends \inoui\extensions\models\Inoui {
     protected $_actsAs = ['Dateable', 'Slugable' => ['fields' => array('name' => 'slug')]];
 
 
+    protected $_schema = array(
+        '_id'  => array('type' => 'id'), // required for Mongo
+        'title' => array('type' => 'string', 'null' => false),
+        'created' => array('type' => 'date'),
+        'published' => array('type' => 'date'),
+        'position' => array('type' => 'number'),
+        'updated' => array('type' => 'date')
+    );
+
+
 
 	public static function thumbnail($entity, $pos=0, $options = array()) {
 		if (!isset($entity->_files)) $entity->images();
 		if ($pos == 0)  $url = (count($entity->_files)) ? $entity->_files->first()->url($options):'/media/placeholder.jpg';
-		else  $url = (count($entity->_files)) ? $entity->_files->next()->url($options):'/media/placeholder.jpg';
+		else {
+			if ($pos <= count($entity->_files)) {
+				while ($pos > 0) {
+					$pos--;
+					$url = $entity->_files->next()->url($options);
+				}
+			}
+		}
+
+
+			// $url = (count($entity->_files)) ? $entity->_files->key()->url($options):'/media/placeholder.jpg';
 		return $url;
 	}
 

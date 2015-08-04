@@ -3,6 +3,7 @@
 namespace inoui_ecomm\controllers;
 use inoui_ecomm\models\Carts;
 use inoui_ecomm\models\Discounts;
+use inoui_ecomm\models\Shippings;
 use inoui_ecomm\models\Orders;
 
 class CartsController extends \inoui\extensions\action\InouiController {
@@ -10,6 +11,7 @@ class CartsController extends \inoui\extensions\action\InouiController {
 	public function index() {
 		$cart = Carts::getCart(true);
 		
+		$shippings = Shippings::getShipping();
 		
 		if ($this->request->data && isset($this->request->data['items'])) {
 			foreach($this->request->data['items'] as $id => $quantity) {

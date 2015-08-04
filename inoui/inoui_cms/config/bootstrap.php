@@ -1,6 +1,8 @@
 <?php
 use inoui\models\Navigation;
 use inoui\core\Inoui;
+use lithium\core\Libraries;
+
 $navigation = array(
 	'admin.website' => array(
 		// 'channels' => array(
@@ -26,13 +28,6 @@ $navigation = array(
 			'options' => array('icon'=>'list-ul')
 		),
 
-		'collections' => array(
-			'title' => 'Collections',
-			'url' => array('Pages::index', 'args' => 'collections', 'library'=>'inoui_cms', 'admin'=>true),
-			'options' => array('icon'=>'list-ul')
-		),
-
-
 	    'categories' => array(
 	        'title' => 'Categories',
 	        'url' => array('Categories::index', 'library'=>'inoui_cms', 'admin'=>true),
@@ -46,6 +41,11 @@ $navigation = array(
 		)
 	)
 );
+
+$config = Libraries::get('inoui_cms');
+if (isset($config['admin.website'])) {
+	$navigation['admin.website'] += $config['admin.website'];
+}
 
 Inoui::register('inoui_cms', compact('navigation'));
 ?>

@@ -13,7 +13,7 @@ use inoui\models\Newsletters;
 use \lithium\g11n\Message;
 use inoui_cms\models\Pages;
 use inoui\models\Media;
-
+use \inoui\models\Channels;
 /**
  * This controller is used for serving static pages by name, which are located in the `/views/pages`
  * folder.
@@ -32,10 +32,11 @@ use inoui\models\Media;
 class PagesController extends \inoui\extensions\action\InouiController {
 
 	public function view() {
-		
+		$ok = false;
 		if ($this->request->is('post')) {
 			$action = $this->request->data['action'];
 			$this->$action($this->request->data);
+			$ok = true;
 		}
 
 		$options = array();
@@ -64,11 +65,26 @@ class PagesController extends \inoui\extensions\action\InouiController {
 		$conditions = array('slug' => $this->request->slug);
 		$page = Pages::find('first', compact('conditions'));
 
+		if (!$page) {
+			$options['template'] = $this->request->slug;
+			return $this->render($options);
+		}
+
+
+		$channel = Channels::first($page->channel_id);
+		$channel->schema = json_decode($channel->schema);
+
+
 		$media = Media::find('all', array(
 			'conditions'=>array('fk_id'=>(string)$page->_id, 'fk_type'=>'pages'),
 			'order' => 'position'
 		));
         $jsInit = 'pages';
+
+        if (isset($channel->schema->options->template)) {
+        	$this->_render['template'] = $channel->schema->options->template;
+        }
+
 		return compact('page', 'media', 'jsInit');
 	}
 
@@ -90,8 +106,7 @@ class PagesController extends \inoui\extensions\action\InouiController {
            'subject' => $subject,
            'type' => 'html'
 		);
-		
-		Mailer::deliver('contact', $receipt+compact('data'));
+		if (!empty($data['message'])) Mailer::deliver('contact', $receipt+compact('data'));
 	}
 	
 }

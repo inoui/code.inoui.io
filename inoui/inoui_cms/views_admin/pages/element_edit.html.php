@@ -43,6 +43,14 @@ $fields = isset($channel->schema->fields) ? $channel->schema->fields:[];
               </header>
 
               <div class="panel-body">
+                <div class="editable"  data-field="intro" data-placeholder="<?= $t('Intro') ?>">
+                  <?php echo $page->intro; ?>
+                </div>
+              </div>
+
+
+
+              <div class="panel-body">
                 <div class="editable mimages"  data-field="content" data-placeholder="<?= $t('content') ?>">
                   <?php echo $page->content; ?>
                 </div>
