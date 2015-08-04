@@ -44,6 +44,7 @@ Inoui.define('Inoui.Admin', Inoui.extend({
       $('.ui-sortable, .sortable').sortable2({
         
       }).bind('sortupdate', function(e) {
+
           var arr = [];
           var cls = $(this).data('class');
           $(this).children().each(function(){

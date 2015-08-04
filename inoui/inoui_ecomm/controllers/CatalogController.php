@@ -10,7 +10,7 @@ use inoui_admin\models\Categories;
 use inoui\action\Mailer;
 use lithium\data\Connections;
 use lithium\security\Auth;
-
+use \inoui\models\Channels;
 
 class CatalogController extends \inoui\extensions\action\InouiController {
 
@@ -19,7 +19,7 @@ class CatalogController extends \inoui\extensions\action\InouiController {
 
 
 		$conditions = array('status' => 'published');
-		if ($this->_isAdmin) $conditions = array();
+		// if ($this->_isAdmin) $conditions = array();
 
 		if (isset($this->request->params['category']) && $this->request->params['category'] != 'index') {
 			
@@ -64,9 +64,9 @@ class CatalogController extends \inoui\extensions\action\InouiController {
 			$vendorPages = Pages::find('all', compact('conditions'));
 
 		}
-
-
-		return compact('products', 'category', 'media', 'nav', 'vendorPages');
+		$channels = Channels::getListByType('product');
+		
+		return compact('products', 'category', 'media', 'nav', 'vendorPages', 'channels');
 	}
 
 

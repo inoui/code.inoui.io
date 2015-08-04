@@ -21,7 +21,7 @@ class PagesController extends \inoui_admin\extensions\action\AdminController {
 	public function index() {
 		extract(Message::aliases());
 		
-		// $order = array('order'=>array('order ASC'));
+		
 		
 		if (count($this->request->args)) {
 			$channel = Channels::find('first', ['conditions'=>['slug'=>$this->request->args]]);
@@ -29,8 +29,11 @@ class PagesController extends \inoui_admin\extensions\action\AdminController {
 				$conditions = ['channel_id' => (string)$channel->_id];
 			}
 		}
-
+		$order = 'position';
 		$pages = Pages::all(compact('conditions', 'order'));
+
+
+
         $this->_breadcrumbs[$t('Pages')] = array('Dashboard::index');
 
 

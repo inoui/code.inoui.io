@@ -73,6 +73,11 @@ $this->set(array('topActions'=>array(
 							
 								</div>
 								<div class="col-lg-8">
+
+									<?=$this->form->field('position', array(
+											'class' => 'form-control ',
+										)); ?>
+
 									<?php if($channel->slug && $channel->slug == 'blog-post'): ?>
 										<h5><?= $t('Publication date') ?></h5>
 										<?= $this->form->input('published', array(

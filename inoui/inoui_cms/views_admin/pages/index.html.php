@@ -27,6 +27,7 @@
 	            <th><i class="ic icon-bullhorn"></i> <?= $t('Page title'); ?>	</th>
 
 				<th><?= $t('Slug'); ?></th>
+				<th><?= $t('Position'); ?></th>
 				<th><?= $t('Page type'); ?></th>
 				<th> </th>				
 	        </tr>
@@ -39,6 +40,9 @@
 				</td>	
 				<td>
 					<?= $page->slug; ?>
+				</td>
+				<td>
+					<?= $page->position; ?>
 				</td>
 
 				<td>

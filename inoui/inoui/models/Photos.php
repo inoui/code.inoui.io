@@ -288,7 +288,7 @@ class Photos extends \lithium\core\StaticObject {
         $args = array($res, $destination);
         switch($format) {
             // Set quality values for JPEG and PNG
-            case 'jpeg': $args[] = 80; break;
+            case 'jpeg': $args[] = 95; break;
             case 'png':  $args[] = 9;  break;
         }
         return call_user_func_array($write_func, $args);

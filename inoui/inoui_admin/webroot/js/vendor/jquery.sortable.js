@@ -7,7 +7,7 @@
  */
 (function($) {
 var dragging, placeholders = $();
-$.fn.sortable = function(options) {
+$.fn.sortable2 = function(options) {
 	var method = String(options);
 	options = $.extend({
 		connectWith: false
