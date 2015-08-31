@@ -17,10 +17,15 @@ class Shippings extends \inoui\extensions\models\Inoui {
 	}
 
 
-	public static function getShipping($order = null) {
+	public static function getShipping($order = null, $free = false) {
 		$regions = Zend_Locale::getTranslationList('TerritoryToRegion');
 		// $aRegion = explode(' ', $regions[$order->shipping->country]);
-		$shippings = self::find('all', array('order'=>array('price'=>'ASC')));
+		if ($free) {
+			$shippings = self::find('all', array('conditions'=>array('price' => 0)));	
+		} else {
+			$shippings = self::find('all', array('order'=>array('price'=>'ASC')));	
+		}
+		
 
 		// foreach ($shippings as $key => $shipping) {
 		// 	$territories = $shipping->territories->to('array');

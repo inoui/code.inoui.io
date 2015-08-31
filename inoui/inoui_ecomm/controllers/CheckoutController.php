@@ -40,7 +40,20 @@ class CheckoutController extends \inoui\extensions\action\InouiController {
         $orderId = Session::read('orderId');
 		$order = Orders::find($orderId);
 		$cart = Carts::getCart(true);
-		$shippings = Shippings::getShipping($order);
+
+
+
+        $free = true;
+        foreach ($cart->items as $key => $item) {
+            if ((string)$item->product->channel_id != '55c067bcd8e27de20d8b4567' && (string)$item->product->channel_id != '555b4365704879361a8b4567') {
+                $free = false;
+            }
+        }
+
+		$shippings = Shippings::getShipping($order, $free);
+
+
+
 
 		if ($this->request->data && $order->save($this->request->data)) {
 			$order->fill($cart);

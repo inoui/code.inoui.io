@@ -97,6 +97,7 @@ class Date extends \DateTime {
 		if (isset($options['calendar'])) {
 			$this->calendar($options['calendar']);
 		}
+
 		return $_options;
 	}
 
@@ -110,16 +111,18 @@ class Date extends \DateTime {
 	 */
 	protected function _formatter($options = array()) {
 		$options += $this->_options() + array('pattern' => null);
+
 		if (is_a($options['timezone'], '\DateTimeZone')) {
 			$options['timezone'] = $options['timezone']->getName();
 		}
+
 		$int = new IntlDateFormatter(
 			$options['locale'] . '@calendar=' . $options['calendar'],
 			IntlDateFormatter::FULL, 
-			IntlDateFormatter::SHORT
-			// $options['timezone']
-			// IntlDateFormatter::GREGORIAN
-			// $options['pattern']
+			IntlDateFormatter::SHORT,
+			$options['timezone'],
+			IntlDateFormatter::GREGORIAN,
+			$options['pattern']
 		);
 		return $int;
 
@@ -361,7 +364,7 @@ class Date extends \DateTime {
 		return $this->_formatter(array(
 			// ICU timezones DST data are not as accurate as PHP.
 			// So we get timezone difference in hours from php and pass it to ICU.
-			'timezone' => 'GMT' . parent::format('O'),
+			// 'timezone' => 'GMT' . parent::format('O'),
 			'pattern' => $pattern
 		))->format($this->getTimestamp());
 	}

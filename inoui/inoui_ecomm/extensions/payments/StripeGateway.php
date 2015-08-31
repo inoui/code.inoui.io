@@ -26,10 +26,6 @@ class StripeGateway extends \inoui_ecomm\extensions\payments\Payment {
         // $prefs = unserialize($this->shop->payment_preferences);
 
 
-        $stripe = array(
-          "secret_key"      => "sk_live_EIUcfHjcOIoocaL1OpcgR4Qi",
-          "publishable_key" => "pk_live_pI9x3Nb9aJsNopI8RrqZ6IC6"
-        );
 
         \Stripe\Stripe::setApiKey($stripe['secret_key']);
 
