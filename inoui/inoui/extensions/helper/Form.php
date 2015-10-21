@@ -315,7 +315,8 @@ class Form extends \lithium\template\helper\Form {
 
 
     protected function _selectOptions(array $list, array $scope) {
-        if (is_object($scope['value'])) $scope['value'] = (string)$scope['value']; 
+        if (is_object($scope['value']) && get_class($scope['value']) != 'lithium\data\collection\DocumentSet') $scope['value'] = (string)$scope['value']; 
+        else if (get_class($scope['value']) == 'lithium\data\collection\DocumentSet') $scope['value'] = $scope['value']->to('array'); 
         return parent::_selectOptions($list, $scope);
     }
 }

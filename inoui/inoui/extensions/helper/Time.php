@@ -10,7 +10,7 @@ class Time extends \lithium\template\Helper {
         if ($date == null) return '';
         $default = array();
         $options += $default;
-    	$d = new Date($date, $options);
+    	$d = new Date($date, $options); 
         return $d->format($pattern);
 	}
 

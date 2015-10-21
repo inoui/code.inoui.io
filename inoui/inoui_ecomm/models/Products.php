@@ -116,7 +116,13 @@ class Products extends \inoui\extensions\models\Inoui {
     }
 
 	public function isOnSale($entity, $sku = null) {
-        return true;
+
+        if (isset($entity->channel) && isset($entity->channel->date)) {
+
+            if( strtotime($entity->channel->date) < strtotime('now') ) { 
+                return false;
+            }
+        }
 		return ($entity->status == 'published' && $entity->inStock($sku));
 	}
 
@@ -129,7 +135,7 @@ class Products extends \inoui\extensions\models\Inoui {
             $qqt = $entity->quantity;
         }
         // find how many are in cart //
-
+        return $qqt;
 
 
     }
