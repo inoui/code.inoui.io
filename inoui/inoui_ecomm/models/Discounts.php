@@ -6,22 +6,23 @@ use \inoui\models\Media;
 use \inoui_ecomm\models\orders;
 use \lithium\g11n\Message;
 use \lithium\core\Environment;
+use li3_behaviors\data\model\Behaviors;
 
 class Discounts extends \inoui\extensions\models\Inoui {
 
-
+    use Behaviors;
     protected $_actsAs = array('Dateable');
 
 
 	protected $_discountTypes = [
-        '%' => 'Minus percentage', 
-        'amount' => 'Minus amount', 
+        '%' => 'Minus percentage',
+        'amount' => 'Minus amount',
         'shipping' => 'Free shipping'
     ];
  //    array(
-	// 	'pending' => 'Pending', 
-	// 	'ready' => 'Ready', 
-	// 	'shipped' => 'Shipped', 
+	// 	'pending' => 'Pending',
+	// 	'ready' => 'Ready',
+	// 	'shipped' => 'Shipped',
 	// 	'cancelled' => 'Cancelled',
 	// 	'returned' => 'Returned'
 	// );
@@ -29,8 +30,8 @@ class Discounts extends \inoui\extensions\models\Inoui {
 	public static function getDiscountTypes() {
         return self::$_discountTypes;
     }
-    
-	
+
+
 
 
 
@@ -67,29 +68,29 @@ class Discounts extends \inoui\extensions\models\Inoui {
 	            //         }
 	            //         $order->setTotal();
 	            //         $order->save();
-	            //     } 
+	            //     }
 	            // break;
 	            // case 3:
 	            // break;
 	            // case 4:
 	            //     $orderItem = OrderItems::create();
 	            //     $orderItem->promo_id    = $entity->id;
-	            //     $orderItem->inventory_id    = $entity->product_id;                
+	            //     $orderItem->inventory_id    = $entity->product_id;
 	            //     $orderItem->order_id    = $order->id;
 	            //     $orderItem->quantity    = $entity->quantity;
 	            //     $orderItem->price       = $entity->price;
 	            //     $orderItem->price_total = $entity->quantity * $entity->price;
 	            //     $orderItem->save();
-	
+
 	            //     $order->setItems();
 	            //     $order->setTotal();
 	            //     $order->save();
-	
+
 	            // break;
-        }	
+        }
         return $total;
 	}
-		
+
     static function valid($code) {
         $conditions = ['code' => $code];
         $discount = Discounts::first(compact('conditions'));
@@ -114,6 +115,3 @@ class Discounts extends \inoui\extensions\models\Inoui {
 // });
 
 ?>
-
-
-

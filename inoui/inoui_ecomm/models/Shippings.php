@@ -7,9 +7,11 @@ use \lithium\g11n\Message;
 use \lithium\core\Environment;
 use inoui_ecomm\extensions\g11n\Currency;
 use \Zend_Locale;
+use li3_behaviors\data\model\Behaviors;
 
 class Shippings extends \inoui\extensions\models\Inoui {
 
+    use Behaviors;
     protected $_actsAs = array('Dateable', 'Slugable');
 
     public function price($entity) {
@@ -27,10 +29,10 @@ class Shippings extends \inoui\extensions\models\Inoui {
 		// 	$result = array_intersect($territories, $aRegion);
 		// 	if (!count($result) && !in_array('001', $territories)) {
 		// 		unset($shippings[(string)$shipping->_id]);
-		// 	}		
+		// 	}
 		// }
 		return $shippings;
-		
+
 	}
 }
 

@@ -72,9 +72,9 @@ class Products extends \inoui\extensions\models\Inoui {
         $conditions = array('vendor' => $entity->vendor, 'status' => 'published');
         return self::find('all', compact('conditions'));
     }
-    
+
     public function statusLabel($entity) {
-        
+
         $aLabel = array(
             'pending' => 'default',
             'ready' => 'primary',

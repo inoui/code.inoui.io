@@ -14,16 +14,18 @@ use \lithium\g11n\Message;
 use \lithium\core\Environment;
 use \lithium\storage\Session;
 use \lithium\util\Set;
-
+use li3_behaviors\data\model\Behaviors;
 
 class Orders extends \inoui\extensions\models\Inoui {
 
+
+    use Behaviors;
 	protected $_actsAs = array('Dateable');
 
 	protected $_status = array(
-		'pending' => 'Pending', 
-		'ready' => 'Ready', 
-		'shipped' => 'Shipped', 
+		'pending' => 'Pending',
+		'ready' => 'Ready',
+		'shipped' => 'Shipped',
 		'cancelled' => 'Cancelled',
 		'returned' => 'Returned'
 	);
@@ -43,7 +45,7 @@ class Orders extends \inoui\extensions\models\Inoui {
         );
 
     }
-    
+
 
 
     public static function validationRules(){
@@ -103,9 +105,9 @@ class Orders extends \inoui\extensions\models\Inoui {
 				$entity->setInventory();
                 $entity->sendOrderEmail();
                 break;
-            
+
             // case 3:
-            // case 4: 
+            // case 4:
             //      Tickets::removeTickets($entity);
             //      $items = $entity->setItems();
             //      foreach ($items as $key => $item) {
@@ -113,7 +115,7 @@ class Orders extends \inoui\extensions\models\Inoui {
             //          $rate->decrement('sold', $item->quantity);
             //          $success = $rate->save(null, array('validate' => false));
             //      }
-            //      
+            //
             //      break;
 	    }
 		$entity->save();
@@ -141,9 +143,9 @@ class Orders extends \inoui\extensions\models\Inoui {
 		$subject = $t('Thank you for your order #{:order_number} on {:siteName}', array('siteName'=>$preferences->site_name, 'order_number'=>$order->order_number));
 		$data['subject'] = $subject;
 		$receipt = array(
-           'from' => array($preferences->email_name => $preferences->email), 
-           'to' => $order->email, 
-           // 'bcc' => $preferences->email, 
+           'from' => array($preferences->email_name => $preferences->email),
+           'to' => $order->email,
+           // 'bcc' => $preferences->email,
            'subject' => $subject,
            'type' => 'html'
 		);
@@ -171,9 +173,9 @@ class Orders extends \inoui\extensions\models\Inoui {
 		}
 		return "{$entity->first_name} {$entity->last_name}";
     }
-	
+
 	public function statusLabel($entity) {
-		
+
 		$aLabel = array(
             'pending' => 'default',
             'ready' => 'primary',
@@ -185,9 +187,9 @@ class Orders extends \inoui\extensions\models\Inoui {
         );
 		return isset($aLabel[$entity->status]) ? $aLabel[$entity->status]:'default';
 	}
-	
+
 	public function address($entity, $w = 'billing') {
-		
+
 		$address = !empty($entity->{$w}->company)?$entity->{$w}->company.'<br/>':'';
 		$address .= $entity->{$w}->address1.'<br/>';
 		$address .= !empty($entity->{$w}->address2)?$entity->{$w}->address2.'<br/>':'';
@@ -247,21 +249,21 @@ Orders::applyFilter('save', function($self, $params, $chain){
 		$history = array(
 			'status' => $params['data']['status'],
 			'message' => isset($params['data']['status_message'])?$params['data']['status_message']:'',
-			'date' => date('Y-m-d H:i:s', time())			
+			'date' => date('Y-m-d H:i:s', time())
 		);
 		Orders::update(
-			array('$addToSet' => array('history' => $history)), 
-		  	array('_id' => $record->_id), 
+			array('$addToSet' => array('history' => $history)),
+		  	array('_id' => $record->_id),
 		  	array('atomic' => false)
 		);
 
 		if (isset($params['data']['sendmail']) && $params['data']['sendmail'] == 1) {
 			$record->sendOrderEmail('order_'.$params['data']['status']);
 		}
-		
+
     }
 	return $result;
-	
+
 });
 
 

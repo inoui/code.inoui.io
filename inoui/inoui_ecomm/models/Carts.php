@@ -15,8 +15,8 @@ use \lithium\util\Set;
 use li3_behaviors\data\model\Behaviors;
 
 class Carts extends \inoui\extensions\models\Inoui {
-    use Behaviors;
 
+    use Behaviors;
 	protected $_actsAs = array('Dateable');
 
     // public static function validationRules(){
@@ -53,7 +53,7 @@ class Carts extends \inoui\extensions\models\Inoui {
 	}
 
 
-    public static function getCart($full = false) {   
+    public static function getCart($full = false) {
 
         $cartId = Session::read('cartId');
 		if (empty($cartId)) {
@@ -90,9 +90,9 @@ class Carts extends \inoui\extensions\models\Inoui {
 
         return $format?Currency::format($total):$total;
 	}
-	
-	
-	
+
+
+
 	public static function percent($num_amount, $num_total) {
 		$count1 = $num_amount / $num_total;
 		$count2 = $count1 * 100;
@@ -103,9 +103,9 @@ class Carts extends \inoui\extensions\models\Inoui {
 	public function getItem($entity, $_id, $sku = null) {
 		foreach($entity->items as $item) {
 			if ($sku != null) {
-				if ($item->product_id == $_id && $item->variation_sku == $sku) return $item;	
+				if ($item->product_id == $_id && $item->variation_sku == $sku) return $item;
 			} else {
-				if ($item->product_id == $_id) return $item;	
+				if ($item->product_id == $_id) return $item;
 			}
 		}
 		return false;
@@ -128,25 +128,25 @@ class Carts extends \inoui\extensions\models\Inoui {
 
 	public function deleteItem($entity, $id) {
 		Carts::update(
-			array('$pull'=>array('items'=>array('product_id'=>$id))), 
-		  	array('_id' => $entity->_id), 
+			array('$pull'=>array('items'=>array('product_id'=>$id))),
+		  	array('_id' => $entity->_id),
 		  	array('atomic' => false)
 		);
 	}
 
 	static function add($_id, $quantity, $sku = null) {
-		
+
 		$product = Products::first($_id);
 
 		$preferences = Preferences::get();
-		
+
 		if ($sku != null) {
 			$variant = $product->getVariation($sku);
 			$price = $variant->price;
 		} else {
 			$price = $product->price;
 		}
-		
+
 
 		$item = array(
 			'product_id' =>(string)$product->_id,
@@ -156,18 +156,18 @@ class Carts extends \inoui\extensions\models\Inoui {
 			'quantity' =>$quantity
 		);
 		$cart = self::getCart();
-		
+
 		if (empty($cart->_id)) {
 			$cart->save(array('items'=>array($item)));
             Session::write('cartId', $cart->_id);
 		} else {
-		
+
 			if ($exist = $cart->getItem($_id, $sku)) {
-				
+
 				$data = array();
 				$data['items.$.quantity'] = $exist->quantity+$quantity;
 
-				Carts::update(	
+				Carts::update(
 					$data,
 				  	array(
 						'_id' => $cart->_id,
@@ -178,28 +178,28 @@ class Carts extends \inoui\extensions\models\Inoui {
 				);
 			} else {
 				Carts::update(
-					array('$push' => array('items' => $item)), 
-				  	array('_id' => $cart->_id), 
+					array('$push' => array('items' => $item)),
+				  	array('_id' => $cart->_id),
 				  	array('atomic' => false)
 				);
-				
+
 			}
-			
+
 		}
-				
+
 	}
-	
-	public function setDiscount($entity, $discount = '') { 
+
+	public function setDiscount($entity, $discount = '') {
 		$entity->discount = $discount;
 
 		$entity->save();
 	}
-	
+
 	public function updateQuantity($entity, $_id, $quantity) {
 
 		$data = array();
 		$data['items.$.quantity'] = $quantity;
-		Carts::update(	
+		Carts::update(
 			$data,
 		  	array(
 				'_id' => $entity->_id,
@@ -208,7 +208,7 @@ class Carts extends \inoui\extensions\models\Inoui {
 		  	array('atomic' => true)
 		);
 	}
-	
-	
+
+
 }
 ?>

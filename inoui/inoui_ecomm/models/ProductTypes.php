@@ -14,7 +14,7 @@ class ProductTypes extends \inoui\extensions\models\Inoui {
 
 
     /*
-		Fields type : 
+		Fields type :
 			- Text
 			- Textarea
 			- Date
