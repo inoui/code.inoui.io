@@ -3,3 +3,6 @@ dist
 .tmp
 .sass-cache
 bower_components
+.DS_Store
+composer.lock
+libraries/

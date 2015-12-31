@@ -4,13 +4,13 @@ namespace inoui_admin\extensions\action;
 use \lithium\security\Auth;
 use lithium\core\Libraries;
 
-class AdminController extends \lithium\action\Controller{
+class AdminController extends \inoui\extensions\action\InouiController {
 
     protected $_breadcrumbs = array();
 
 	protected function _init(){
 		parent::_init();
-		$path = Libraries::get('inoui_admin', 'path'); 
+		$path = Libraries::get('inoui_admin', 'path');
 		$this->_render['paths'] = array(
 	        'layout' => array(
 				"{$path}/views/layouts/{:layout}.{:type}.php",
@@ -30,14 +30,14 @@ class AdminController extends \lithium\action\Controller{
 	        )
 	    );
         $this->_bind('breadcrumbs', $this->_breadcrumbs);
-		
+
 		if ($this->request->is('ajax')) {
 			$this->_render['layout'] = 'blank';
 		}
 
         $this->_breadcrumbs['Dashboard'] = array('Dashboard::index', 'library'=>'inoui_admin');
 	}
-    
+
     protected function _bind($name, &$value) {
         $this->_render['data'][$name] = &$value;
     }

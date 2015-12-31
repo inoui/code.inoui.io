@@ -6,10 +6,8 @@
     "prefer-stable": true,
     "require": {
         "unionofrad/lithium": "dev-dev as 1.0.0-dev",
-        "jails/li3_behaviors": "@dev",
-        "michaelhue/li3_flash_message": "@dev",
-        "swiftmailer/swiftmailer": "@dev",
-        "atelierdisko/li3_mailer": "@dev"
+        "jails/li3_behaviors": "dev-master",
+        "swiftmailer/swiftmailer": "@dev"
     },
     "config": {
         "vendor-dir": "./libraries"

@@ -3,15 +3,15 @@ use lithium\core\Libraries;
 
 Libraries::add('li3_behaviors');
 Libraries::add('li3_flash_message');
-Libraries::add('li3_mailer');
+// Libraries::add('li3_mailer');
 
-use li3_mailer\net\mail\Delivery;
-use li3_mailer\action\Mailer;
+// use li3_mailer\net\mail\Delivery;
+// use li3_mailer\action\Mailer;
 
-Libraries::add('swiftmailer', array( 
-    'path' => LITHIUM_LIBRARY_PATH . '/swiftmailer/swiftmailer',
-    'bootstrap' => 'lib/swift_required.php'
-));
+// Libraries::add('swiftmailer', array(
+//     'path' => LITHIUM_LIBRARY_PATH . '/swiftmailer/swiftmailer',
+//     'bootstrap' => 'lib/swift_required.php'
+// ));
 
 Libraries::add("Zend", array(
     "prefix" => "Zend_",
@@ -26,9 +26,9 @@ require __DIR__ . '/bootstrap/media.php';
 
 use lithium\core\Environment;
 
-Delivery::config(array('default' => array(
-    'production' => array('adapter' => 'Swift', 'transport'=>'mail'),
-    'development' => array('adapter' => 'Swift','transport'=>'mail'),
-)));
-
+// Delivery::config(array('default' => array(
+//     'production' => array('adapter' => 'Swift', 'transport'=>'mail'),
+//     'development' => array('adapter' => 'Swift','transport'=>'mail'),
+// )));
+//
 ?>

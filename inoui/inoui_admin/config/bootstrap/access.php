@@ -15,14 +15,15 @@ Dispatcher::applyFilter('_call', function($self, $params, $chain) {
 
     $ctrl = $params['callable'];
 	$request = $params['request'];
-	
+
     if(is_object($ctrl) && $params['request']->admin) {
+
         $access = false;
-		
 		if (property_exists($ctrl,'publicActions')) {
 			$action = $params['request']->params['action'];
+
 			if (in_array($action, $ctrl->publicActions)) {
-				$access = true;	
+				$access = true;
 			}
 		}
 
@@ -32,10 +33,11 @@ Dispatcher::applyFilter('_call', function($self, $params, $chain) {
 			if (in_array($role, $config['roles'])) {
         		$access = true;
 			}
-		} 
+		}
+
         if(!$access){
             extract(Message::aliases());
-            FlashMessage::write(array($t('You are not allowed to access this page.'), 'class'=>'error')); 
+            FlashMessage::write(array($t('You are not allowed to access this page.'), 'class'=>'error'));
 	        Auth::clear('user');
             $locale = Environment::get('locale');
             return new Response(compact('request')  + array('location' => array('Users::login', 'library'=>'inoui_users', 'admin'=>true),'status'=>302));

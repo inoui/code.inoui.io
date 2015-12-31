@@ -2,7 +2,7 @@
 namespace inoui\extensions\helper;
 use lithium\net\http\Router;
 use \lithium\g11n\Message;
-use lithium\util\String;
+use lithium\util\Text;
 use lithium\action\Request;
 
 class Html extends \lithium\template\helper\Html {
@@ -23,7 +23,7 @@ class Html extends \lithium\template\helper\Html {
 
 		$titleStr = '{:title} {:site_name}';
 		$data['title'] = isset($data['title'])?"{$data['title']} - ":'';
-		$title = String::insert($titleStr, array('title'=> $data['title'], 'site_name'=>$data['preferences']->site_name));
+		$title = Text::insert($titleStr, array('title'=> $data['title'], 'site_name'=>$data['preferences']->site_name));
 		$description 	= !empty($data['description']) ? $data['description']:$data['preferences']->description;
 		$keywords		= !empty($data['keywords']) ? $data['keywords']:$data['preferences']->keywords;
 
@@ -32,7 +32,7 @@ class Html extends \lithium\template\helper\Html {
 
 		if ($t != null) return $$t;
 
-		
+
 		$meta = array();
 		        $meta[] = $this->tag('tag', array('name'=>'title', 'content'=>$title));
 		        $meta[] = $this->tag('meta', array('options'=>array('name'=>'keywords', 'content'=>$keywords . ',' . $title)));
@@ -49,11 +49,11 @@ class Html extends \lithium\template\helper\Html {
         }
         if (isset($options['path'])) {
             return $path;
-        }        
+        }
         return parent::image($path, $options);
 	}
-    
-    
+
+
 	public function tag($tag, $options = array()) {
 //		if ($tag == 'link' && !isset($options['options'])) $options['options'] = array();
         if (!isset($options['options'])) $options['options'] = array();
@@ -61,7 +61,7 @@ class Html extends \lithium\template\helper\Html {
 	}
 
 	public function nav($nav, $options = array()) {
-        
+
         $defaults = array('escape' => true, 'type' => null);
 		list($scope, $options) = $this->_options($defaults, $options);
 		$result = array();
@@ -82,11 +82,11 @@ class Html extends \lithium\template\helper\Html {
             $icon = $this->icon($options['icon']);
             if (isset($options['ic-after'])) {
                 $title = "{$title} {$icon}";
-                unset($options['ic-after']); 
+                unset($options['ic-after']);
             } else {
-                $title = "{$icon} {$title}";    
+                $title = "{$icon} {$title}";
             }
-            
+
 			unset($options['icon']);
             $options['escape'] = false;
 	    }
@@ -96,11 +96,11 @@ class Html extends \lithium\template\helper\Html {
 
 	public function navlist($item) {
         extract(Message::aliases());
-        $icon = $caret = $sub = '';        
+        $icon = $caret = $sub = '';
 		$defaults = array('class' => '');
         $options    = $item['options'];
         $options += $defaults;
-        
+
         if (isset($options['icon'])) {
             $icon .= $this->icon($options['icon']);
         }
@@ -111,19 +111,19 @@ class Html extends \lithium\template\helper\Html {
             $linkoptions = array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'escape' => false);
             $caret = $this->tag('tag', array('name'=>'b', 'content'=>null, 'options' => array('class'=>'caret')));
         }
-        
+
          $title  = "{$icon} {$t($item['title'])} {$caret}";
          $url    = $item['url'];
 		 $request = $this->_context->request();
 		// $aUrl = Router::_parseString($url);
-		// 
-		
+		//
+
 		$params = $this->_context->request()->params;
 		$params['action'] = 'index';
 		unset($params['id']);
 		unset($params['args']);
-		
-		
+
+
         if(Router::match($params, $this->_context->request()) == Router::match($url, $this->_context->request())) {
             $options['class'] .= ' active ';
         }
@@ -149,7 +149,7 @@ class Html extends \lithium\template\helper\Html {
         $defaults = array('class' => '', 'escape' => true, 'type' => null);
         $options = $defaults;
 
-        
+
         if (is_array($url['args'])) {
             $arg = key($url['args']);
             $val = array_values($url['args'])[0];
@@ -157,17 +157,17 @@ class Html extends \lithium\template\helper\Html {
             $arg = 'args';
             $val = $url['args'];
         }
-        
+
         $li = [];
 
         foreach ($items as $key => $item) {
 
             if (isset($item['url'])) {
-                $link = $item['url']; 
+                $link = $item['url'];
             } else {
                 $link = $url;
                 unset($link['args']);
-                $link[$arg] = $item[$val];                
+                $link[$arg] = $item[$val];
             }
             $content = $this->link($item['title'], $link);
 

@@ -26,4 +26,10 @@ $imageHandlingOptions = array(
 );
 Router::connect('/media/{:slug:[\w\/-]+}.{:width:[0-9]*}{:crop:[a-z]{1}}{:height:[0-9]*}.{:type}', array(), $imageHandlingOptions);
 
+$inoui = array('library' => 'inoui', 'admin' => true);
+$persist = array('library', 'controller', 'admin');
+
+Router::connect('/inoui', $inoui  + array('Inoui::index'), compact('persist'));
+Router::connect('/inoui/install', $inoui  + array('Inoui::install'), compact('persist'));
+
 ?>

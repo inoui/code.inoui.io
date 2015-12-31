@@ -2,7 +2,7 @@
 namespace inoui\core;
 
 
-use lithium\util\String;
+use lithium\util\Text;
 use lithium\util\Inflector;
 use lithium\net\http\Router;
 use lithium\action\Dispatcher;
@@ -10,16 +10,16 @@ use lithium\action\Dispatcher;
 use inoui\models\Navigation;
 
 class Inoui extends \lithium\core\StaticObject {
-	
+
 	protected static $_configurations = array();
 
 	public static function register($library, $config = array()) {
 		$defaults = array(
 			'navigation' => false,
 			'hasAdmin' => true,
-			'uri' => String::extract('/\w+_(\w+)/', $library, 1)
+			'uri' => Text::extract('/\w+_(\w+)/', $library, 1)
 		);
-		$config += $defaults;		
+		$config += $defaults;
 		if ($config['navigation'] && is_array($config['navigation'])) {
 			foreach ($config['navigation'] as $key => $navigation) {
 				Navigation::add($key, $navigation);
@@ -34,9 +34,9 @@ class Inoui extends \lithium\core\StaticObject {
 			'params' => array('library' => $library, 'admin' => true),
 			'persist' => array('library', 'controller', 'admin'),
 		);
-		$config = $config + static::$_configurations[$library];		
+		$config = $config + static::$_configurations[$library];
 		$config += $defaults;
-		$uri = String::insert('/{:admin_path}/{:uri}', $config);
+		$uri = Text::insert('/{:admin_path}/{:uri}', $config);
 		$persist = $config['persist'];
 		$controller = Inflector::camelize($config['uri']);
 		Router::connect($uri, $config['params']+array('controller'=>$controller,'action'=>'index'), compact('persist'));

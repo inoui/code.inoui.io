@@ -3,7 +3,7 @@ namespace inoui\extensions\helper;
 
 use lithium\net\http\Router;
 use lithium\action\Request;
-use lithium\util\String;
+use lithium\util\Text;
 
 
 class Menu extends \lithium\template\Helper {
@@ -44,9 +44,9 @@ class Menu extends \lithium\template\Helper {
 	public function display(array $menu, array $options = array()) {
 		$options += static::$defaults ;
 		$menu  = $this->_prepare($menu, $options) ;
-		$out = String::insert($options['open'], $options) ;
+		$out = Text::insert($options['open'], $options) ;
 		foreach($menu as $item) {
-			$out .= String::insert($options['content'], $item) ;
+			$out .= Text::insert($options['content'], $item) ;
 		}
 		$out .= $options['close'] ;
 
@@ -106,7 +106,7 @@ class Menu extends \lithium\template\Helper {
 
 
 		return $c == $m;
-		
+
 		// foreach($mask as $key => $value) {
 		// 	if (!isset($current[$key])) {
 		// 		return false ;

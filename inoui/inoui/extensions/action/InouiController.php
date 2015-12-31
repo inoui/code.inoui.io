@@ -15,6 +15,11 @@ class InouiController extends \lithium\action\Controller{
         $this->_render['negotiate'] = true;
 		parent::_init();
         $prefs = Preferences::get();
+
+        if (!count($prefs) && $this->request->url != '/inoui/install') {
+            $this->redirect(['Inoui::install', 'library'=>'inoui', 'admin'=>true]);
+        }
+
         $jsInit = null;
         $this->_bind('jsInit', $jsInit);
 
@@ -33,7 +38,7 @@ class InouiController extends \lithium\action\Controller{
         if (!empty($this->_user) && $this->_user['role'] == 'admin') $this->_isAdmin = true;
         // if (empty($this->_user)) die('prout');
 	}
-    
+
     protected function _bind($name, &$value) {
         $this->_render['data'][$name] = &$value;
     }
