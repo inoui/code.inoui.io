@@ -90,21 +90,6 @@ class Menu extends \lithium\template\Helper {
 	protected function _matches(&$mask, &$current) {
 		$c = Router::match($current);
 		$m = Router::match($mask);
-		if (strpos($c,'users') !== false) {
-			$c = '/mes-coprojets';
-		}
-
-		if (strpos($c,'coprojet') !== false) {
-			$c = '/mes-coprojets';
-		}
-
-		if (strpos($c,'financements') !== false) {
-			$c = '/financements';
-		}
-
-
-
-
 		return $c == $m;
 
 		// foreach($mask as $key => $value) {

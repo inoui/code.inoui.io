@@ -8,4 +8,3 @@
 		<?php endforeach ?>
 	</div>
 </aside>
-    

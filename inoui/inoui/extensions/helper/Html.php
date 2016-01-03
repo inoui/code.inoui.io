@@ -105,8 +105,8 @@ class Html extends \lithium\template\helper\Html {
             $icon .= $this->icon($options['icon']);
         }
         $linkoptions = array('escape' => false);
-        if (isset($item['sub'])) {
-            $sub = $this->nav($item['sub'], array('class'=>'dropdown-menu'));
+        if (isset($item['children'])) {
+            $sub = $this->nav($item['children'], array('class'=>'dropdown-menu'));
             $options['class'] .= ' dropdown ';
             $linkoptions = array('class' => 'dropdown-toggle', 'data-toggle' => 'dropdown', 'escape' => false);
             $caret = $this->tag('tag', array('name'=>'b', 'content'=>null, 'options' => array('class'=>'caret')));

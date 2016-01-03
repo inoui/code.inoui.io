@@ -5,6 +5,7 @@ use inoui_cms\models\Contents;
 use inoui_cms\models\ContentTypes;
 use lithium\action\DispatchException;
 
+
 class ContentsController extends \inoui_admin\extensions\action\AdminController {
 
 
@@ -16,14 +17,14 @@ class ContentsController extends \inoui_admin\extensions\action\AdminController 
 		$aTypes = ContentTypes::getContentTypes();
 		if (isset($this->request->params['args']) && count($this->request->params['args'])) {
 			$type = $this->request->params['args'][0];
-		} 
+		}
 		if (!is_null($type) && isset($aTypes[$type])) {
 			$this->type = $type;
 
 		} else {
 			$keys = array_keys($aTypes);
 			$this->type = array_shift($keys);
-		}		
+		}
 		$this->_bind('type', $this->type);
 		$structure = ContentTypes::find($this->type);
 		$this->_bind('contentStructure', $structure);
@@ -32,6 +33,7 @@ class ContentsController extends \inoui_admin\extensions\action\AdminController 
 
 	public function index() {
 		$conditions = array('type'=>$this->type);
+
 
 		if($this->type == 'aides') {
 			$this->_render['template'] = 'aides';
@@ -85,15 +87,15 @@ class ContentsController extends \inoui_admin\extensions\action\AdminController 
 
         $aKey = explode('_', $this->request->data['key']);
         $value = $this->request->data['value'];
-        
+
 		$content = Contents::find($aKey[1]);
 		if ($content) {
             $content->{$aKey[0]} = $value;
             $content->save();
 		}
         return compact("content");
-	}	
-	
+	}
+
 }
 
 ?>

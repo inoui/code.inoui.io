@@ -8,7 +8,7 @@ use \lithium\core\Environment;
 use li3_behaviors\data\model\Behaviors;
 
 class Channels extends \inoui\extensions\models\Inoui {
-    
+
     use Behaviors;
 	protected $_actsAs = array('Dateable', 'Slugable');
 
@@ -23,7 +23,7 @@ class Channels extends \inoui\extensions\models\Inoui {
 	public function title($entity) {
 		if (!$entity->exists())  return 'New title';
 		return $entity->title;
-		
+
 	}
 
     public static function getListByType($type) {
@@ -40,6 +40,25 @@ class Channels extends \inoui\extensions\models\Inoui {
         return $list;
     }
 
+    public static function getChannelsNav() {
+
+        $channels = self::find('all');
+        $nav = [];
+        foreach ($channels as $key => $channel) {
+            $nav[] = [
+                'options' => array('icon'=>'list-ul'),
+                'title' => $channel->title,
+                'url' => [
+                    'Documents::index',
+                    'args' => $channel->slug,
+                    'library'=>'inoui_cms',
+                    'admin'=>true
+                ]
+            ];
+        }
+
+        return $nav;
+    }
 
 }
 

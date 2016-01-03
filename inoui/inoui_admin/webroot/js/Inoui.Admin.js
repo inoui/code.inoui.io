@@ -32,7 +32,7 @@ Inoui.define('Inoui.Admin', Inoui.extend({
       $('.default-date-picker').datepicker({
           format: 'dd-mm-yyyy'
       });
-      
+
       // $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch();
       $("[data-toggle='switch']").bootstrapSwitch();
       $('.wysiwyg').redactor({
@@ -42,7 +42,7 @@ Inoui.define('Inoui.Admin', Inoui.extend({
       });
 
       $('.ui-sortable, .sortable').sortable2({
-        
+
       }).bind('sortupdate', function(e) {
 
           var arr = [];
@@ -54,12 +54,12 @@ Inoui.define('Inoui.Admin', Inoui.extend({
       });
 
       // $('.uploader_div').each(function() {
-        
+
       //   var o = {
       //     fk_type:$(this).data('type'),
       //     fk_id:$(this).data('id')
       //   }
-        
+
       //   $(this).ajaxupload({
       //       url:conf.baseUrl+'/media/attach/id/'+$('#AttachId').val(),
       //       chunkSize:0,
@@ -75,7 +75,7 @@ Inoui.define('Inoui.Admin', Inoui.extend({
       //         that._service('Media::getFiles', this.AU.settings.data, that.onFiles);
       //       }
       //     });
-        
+
       // })
 
       $('.tooltips').tooltip();
@@ -107,21 +107,21 @@ Inoui.define('Inoui.Admin', Inoui.extend({
               fk_id:$(this.element).data('fk_id'),
               dataType:'html'
             }
-            
+
             that._service('Media::getFiles', o, that.onFiles);
           }
         });
-        
-        
+
+
       })
 
-      // 
+      //
       // Dropzone.options.myAwesomeDropzone = {
       //   paramName: "file", // The name that will be used to transfer the file
       // };
-      // 
+      //
     },
-    
+
     setUpMedium:function() {
 
       this.editor = new MediumEditor('.editable');
@@ -141,12 +141,12 @@ Inoui.define('Inoui.Admin', Inoui.extend({
       //   uploadScript:'/media/upload/'
       // });
       $('.nav.nav-tabs li:eq(0)').addClass('active')
-      $('.tab-pane:eq(0)').addClass('active')      
-      
-      
+      $('.tab-pane:eq(0)').addClass('active')
+
+
     },
-    
-    savePage:function() {
+
+    saveDocument:function() {
       var that = this;
       var allContents = this.editor.serialize();
       var i = 0;
@@ -156,16 +156,16 @@ Inoui.define('Inoui.Admin', Inoui.extend({
         var value = element.value;
         $('<input>').attr({
             type: 'hidden',
-            id: "Pages"+that.capitaliseFirstLetter(field),
+            id: "Documents"+that.capitaliseFirstLetter(field),
             name: field,
             value:value
-        }).appendTo('#frmPages');
+        }).appendTo('#frmDocuments');
 
       });
-      $("#frmPages").submit();
+      $("#frmDocuments").submit();
 
     },
-    
+
     showOrder:function(evt) {
       var href = $(evt.currentTarget).data("href");
       $('#orderReceipt').load(href);
@@ -182,14 +182,14 @@ Inoui.define('Inoui.Admin', Inoui.extend({
         $("#ProductsNewCategory").prop('disabled', true);
       }
     },
-    
+
     deleteMedia:function(evt) {
       var $target = $(evt.currentTarget);
       var url = $target.attr('href');
       var data = this._service(url);
       $(evt.currentTarget).closest('li').remove();
     },
-    
+
     onFiles:function(data) {
       if (Inoui.Admin.Media != undefined) {
         return Inoui.Admin.Media.onFiles(data)
@@ -197,7 +197,7 @@ Inoui.define('Inoui.Admin', Inoui.extend({
       $("#file_receipt").html(data);
       var that = this;
       $('.ui-sortable').sortable2({
-          
+
       }).bind('sortupdate', function(e) {
           var arr = [];
           $(this).find('li').each(function(){
@@ -286,5 +286,5 @@ Inoui.define('Inoui.Admin', Inoui.extend({
     capitaliseFirstLetter:function(string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    
+
 }));

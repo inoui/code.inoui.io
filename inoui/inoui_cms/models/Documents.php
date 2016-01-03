@@ -8,14 +8,11 @@ use \lithium\core\Environment;
 use li3_behaviors\data\model\Behaviors;
 use \inoui\models\Channels;
 
-
-
-
-class Pages extends \inoui\extensions\models\Inoui {
+class Documents extends \inoui\extensions\models\Inoui {
 
     // protected $_actsAs = array('Dateable', 'Versionable');
     use Behaviors;
-    
+
     protected $_actsAs = ['Dateable', 'Slugable' => ['fields' => array('name' => 'slug')]];
 
 
@@ -74,7 +71,7 @@ class Pages extends \inoui\extensions\models\Inoui {
 			$locale = Environment::get('locale');
 			return $entity->title->$locale;
 		}
-		return $entity->title;		
+		return $entity->title;
 	}
 
 	// public function __call($name, $params) {
@@ -82,7 +79,7 @@ class Pages extends \inoui\extensions\models\Inoui {
 	// 	try {
 	// 		return parent::__call($name, $params);
 	// 	} catch (\BadMethodCallException $e) {
-	// 
+	//
 	// 		$entity = $params[0];
 	// 		$field = $entity->$name;
 	// 		if (isset($params[1]) && in_array($params[1], Environment::get('locales')) ) {
@@ -93,13 +90,13 @@ class Pages extends \inoui\extensions\models\Inoui {
 	// 		if ( is_object($field) && isset($field->$locale)) {
 	// 			return $field->$locale;
 	// 		}
-	// 	}		
+	// 	}
 	// }
 
 }
 
 
-Pages::applyFilter('save', function($self, $params, $chain){
+Documents::applyFilter('save', function($self, $params, $chain){
 	$entity = $params['entity'];
 	if (!isset($entity->name) || empty($entity->name)) {
 		$params['data']['name'] = $entity->title;

@@ -40,11 +40,11 @@ class Inoui extends \lithium\core\StaticObject {
 		$persist = $config['persist'];
 		$controller = Inflector::camelize($config['uri']);
 		Router::connect($uri, $config['params']+array('controller'=>$controller,'action'=>'index'), compact('persist'));
-
 		Router::connect($uri.'/{:controller}/{:action}/id/{:id:[0-9a-f]{24}}/page:{:page:[0-9]+}/{:args}', $config['params'], compact('persist'));
 		Router::connect($uri.'/{:controller}/{:action}/id/{:id:[0-9a-f]{24}}/{:args}', $config['params'], compact('persist'));
 		Router::connect($uri.'/{:controller}/{:action}/page:{:page:[0-9]+}/{:args}', $config['params'], compact('persist'));
-		Router::connect($uri.'/{:controller}/{:action}/{:args}', $config['params'], compact('persist'));
+        Router::connect($uri.'/{:controller}/{:action}/{:args}.{:type}', $config['params'], compact('persist'));
+        Router::connect($uri.'/{:controller}/{:action}/{:args}', $config['params'], compact('persist'));
 	}
 
 }
